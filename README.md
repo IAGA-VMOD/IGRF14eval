@@ -1,5 +1,6 @@
-Python code and Gauss coefficients from the 13 generation of the IGRF candidate evaluation
-Originally submitted in October 2019
+Python code and Gauss coefficients from the 13 generation of the IGRF candidate evaluation.
+
+Originally submitted in October 2019.o
 
 Based on:
 Alken, P., Thébault, E., Beggan, C.D. et al. Evaluation of candidate models for the 13th generation 
@@ -7,6 +8,7 @@ International Geomagnetic Reference Field. Earth Planets Space 73, 48 (2021).
 https://doi.org/10.1186/s40623-020-01281-4
 
 Tests are:
+
 0) Check files are correctly formatted, then:
 1) Lowes-Mauerberger power spectra plots 
 2) Root-mean-square differences between candidates  
