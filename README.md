@@ -1,6 +1,6 @@
 Python code and Gauss coefficients from the 13 generation of the IGRF candidate evaluation.
 
-Originally submitted in October 2019.o
+Originally submitted in October 2019.
 
 Based on:
 Alken, P., Thébault, E., Beggan, C.D. et al. Evaluation of candidate models for the 13th generation 
