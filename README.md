@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/IAGA-VMOD/IGRF13eval/main)
+
 Python code and Gauss coefficients from the 13 generation of the IGRF candidate evaluation.
 
 Originally submitted in October 2019.
