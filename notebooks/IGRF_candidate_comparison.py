@@ -49,7 +49,7 @@ candidate = 'IGRF'
 year = '2025'
 IGRF_DIR = os.path.abspath('../data/coefficients/' + candidate + '/*.cof')
 # Choose a model to compare the others against using its filename e.g.
-compare_against = 'Z_MEDIAN'
+compare_against = 'IGRF13_2025'
 
 
 """
