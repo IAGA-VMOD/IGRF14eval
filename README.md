@@ -1,8 +1,6 @@
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/IAGA-VMOD/IGRF13eval/main)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/IAGA-VMOD/IGRF14eval/main)
 
-Python code and Gauss coefficients from the 13 generation of the IGRF candidate evaluation.
-
-Originally submitted in October 2019.
+Python code and Gauss coefficients from the 14 generation of the IGRF candidate evaluation.
 
 Based on:
 Alken, P., Thébault, E., Beggan, C.D. et al. Evaluation of candidate models for the 13th generation 
@@ -20,5 +18,3 @@ Tests are:
 6) Spatial maps of comparison in X, Y, Z, Br, Bt, Bp between one candidate and the others
 
 Code based on GitHub repos: IAGA Summer School Python exercises and ChaosMagPy 
-
-
