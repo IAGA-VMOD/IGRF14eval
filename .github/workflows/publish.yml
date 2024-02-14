@@ -11,7 +11,16 @@ jobs:
   build:
     name: Build Jupyter Book
     runs-on: ubuntu-latest
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+    # Deploy to the github-pages environment
+    environment:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Set up the execution environment
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Initialise conda
@@ -24,34 +33,22 @@ jobs:
           conda create --name bookbuilder --file .bookbuilder/conda-linux-64.lock
           conda create --name igrf --file binder/lockfiles/conda-linux-64.lock
           conda run --no-capture-output -n igrf python -m ipykernel install --user --name igrf
+      # Execute notebooks and build book
       - name: Execute notebooks against igrf python kernel
         shell: bash -el {0}
         run: |
           conda run -n bookbuilder \
             pytest --numprocesses auto --nbmake --overwrite --nbmake-kernel=igrf notebooks/*.ipynb
       - name: Build jupyter book
+        id: build-book
         if: always()
         shell: bash -el {0}
         run: conda run -n bookbuilder jupyter-book build .
+      # Push the resulting html to GitHub Pages
       - name: Upload artifact to pass to GitHub Pages
-        if: always()
         uses: actions/upload-pages-artifact@v3
         with:
           path: _build/html
-  deploy:
-    name: Deploy to GitHub Pages
-    needs: build
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-        pages: write      # to deploy to Pages
-        id-token: write   # to verify the deployment originates from an appropriate source
-    # Deploy to the github-pages environment
-    environment:
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }}
-    # Specify runner + deployment step
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
