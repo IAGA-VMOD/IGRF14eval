@@ -30,9 +30,11 @@ jobs:
           conda run -n bookbuilder \
             pytest --numprocesses auto --nbmake --overwrite --nbmake-kernel=igrf notebooks/*.ipynb
       - name: Build jupyter book
+        if: always()
         shell: bash -el {0}
         run: conda run -n bookbuilder jupyter-book build .
       - name: Upload artifact to pass to GitHub Pages
+        if: always()
         uses: actions/upload-pages-artifact@v3
         with:
           path: _build/html
