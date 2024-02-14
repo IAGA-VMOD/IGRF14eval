@@ -1,0 +1,10 @@
+name: bookbuilder
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pytest
+  - pytest-xdist
+  - nbmake
+  - jupyter-book

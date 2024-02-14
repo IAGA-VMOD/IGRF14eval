@@ -1,0 +1,6 @@
+format: jb-book
+root: README
+chapters:
+- file: notebooks/DGRF2015_candidate_comparison
+- file: notebooks/IGRF2020_candidate_comparison
+- file: notebooks/SV2020_candidate_comparison
