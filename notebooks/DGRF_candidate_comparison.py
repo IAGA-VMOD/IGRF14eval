@@ -1,26 +1,43 @@
-# -*- coding: utf-8 -*-
-"""
+# ---
+# jupyter:
+#   jupytext:
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.15.2
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
+# ---
 
-Outline code test for IGRF candidate evaluation
-
-Example for the DGRF candidates
-
+# %% [markdown]
+# # Outline code test for IGRF candidate evaluation
+#
+# # Example for the DGRF candidates 
+#
 # Load available candidates
-#    Use the alphebetical ordering and labels from each candidate - 
-#    There is a set naming convention
+#
+# Use the alphebetical ordering and labels from each candidate.
+#
+# There is a set naming convention: 
+# - first three lines start with # 
+# - third line has: g h       n           m      n_uncertainty m_uncertainty
+# - data starts on fourth line e.g.:   1  0 -29441.40      0.00            0.00            0.00
+#
+# Tests are:
+#
+# 0) Check files are correctly formatted, then:
+# 1) Lowes-Maursberger power spectra plot
+# 2) RMS differences between coefficients table and plot  
+# 3) Degree correlation between coefficients and one chosen model
+# 4) Azimuthal spectra between coefficients and one chosen model
+# 5) Triangle plot of differences between coefficients and one chosen model
+# 6) Maps magnetic field in: X, Y, Z, Br, Bt, Bp between coefficients and one chosen model
+#
 
-#  Tests are - 
-Check files are correctly formatted, then:
-1) power spectra 
-2) RMS differences  
-3) Degree correlation
-4) Azimuthal spectra
-5) Triangle plot of differences
-6) maps of comparison in X, Y, Z, Br, Bt, Bp
-
-
-"""
-
+# %%
 # Import the packages and bespoke functions from src folder
 import os
 import sys
@@ -43,18 +60,24 @@ cc = ( cycler(linestyle=['-', '--', '-.',':']) *
        cycler(color=list('rgbk')) * 
        cycler(marker=['none', 's', '.']))
 
+# %% [markdown]
+# # User sets the following variables:
+#
 
-# User sets the following variables:
-# Access candidate models in the ../data/coefficients/DGRF directory
+# %%
+# Access candidate models in the ../data/IGRF13/DGRF directory
 # Declare the fixed constants
-field_type = 'main'
-candidate = 'DGRF'
-year = '2020'
+field_type = 'main'   # 'main' or 'sv'
+candidate = 'DGRF'    # 'DGRF', 'IGRF' or 'SV'
+year = '2020'         # For labelling
+
 DGRF_DIR = os.path.abspath('../data/coefficients/' + candidate + '/*.cof')
-# Choose a model to compare the others against using its filename e.g.
+
+# Choose a model from the candidate list to compare the others against using its filename e.g.
+# The Median version was chosen for the DGRF final model
 compare_against = 'IGRF13'
 
-
+# %%
 """
 
 Check files are correctly formatted
@@ -77,6 +100,7 @@ if not(pass_or_fail).all():
 num_candidates = coeffs.shape[1]
 
 
+# %%
 """
 
 First Test: plot of power spectra of each model on a log plot (n versus Rn)
@@ -107,6 +131,8 @@ plt.title('Mausberger-Lowes Spectrum for ' + candidate +
           ' ' + year + ' candidates')
 
 
+
+# %%
 """
 
 Second Test: plot of RMS difference between each model (dP)
@@ -155,6 +181,7 @@ for i in range(num_candidates):
         kw.update(color=textcolors[int(im.norm(dP[i, j]) > threshold)])
         text = ax.text(j, i, valfmt(dP[i, j]), **kw)
 
+# %%
 """
 
 Third Test: plot of RMS difference per degree between each model (dP_degree)
@@ -220,6 +247,8 @@ ax2.legend(ncols=2, loc=3)
 plt.xticks(np.arange(1, degree+1, 2))
 plt.xlim(1,degree)
 
+
+# %%
 """
 
 Fourth Test: Plot the azimuthal power spectrum of each candidate
@@ -252,6 +281,7 @@ plt.title('Azimuthal Spectrum for ' + candidate +
           ' ' + year + ' candidates')
 plt.xlim((-1.01, 1.01))
 
+# %%
 """
 
 Fifth Test: Plot a series of small triangles showing the main field or SV 
@@ -317,11 +347,13 @@ cbar_ax = fig.add_axes([0.2, 0.06, 0.6, 0.015])
 # Draw the colorbar
 cbar=fig.colorbar(cs, cax=cbar_ax,orientation='horizontal', label='nT')
 
-
+# %%
 """
 
 Sixth Test: Plot a series of small maps showing the main field or SV 
 differences in a chosen component (default 'Z') against the other candidates 
+
+Can take several minutes depending on the machine speed
 
 Based on the example from
 https://kpegion.github.io/Pangeo-at-AOES/examples/multi-panel-cartopy.html
@@ -398,7 +430,6 @@ for j in range(num_candidates):
         axs[axis_count].set_title(institute_name[j])
 
         # Draw the coastines for each subplot
-        #axs[axis_count].coastlines('110m', alpha=0.1)
         # read shape-file and plot coast lines
         with shapefile.Reader(shp) as sf:
 
@@ -432,3 +463,5 @@ cbar_ax = fig.add_axes([0.2, 0.1, 0.6, 0.015])
 
 # Draw the colorbar
 cbar=fig.colorbar(cs, cax=cbar_ax,orientation='horizontal', label='nT')
+
+# %%

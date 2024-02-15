@@ -1,24 +1,44 @@
-# -*- coding: utf-8 -*-
-"""
+# ---
+# jupyter:
+#   jupytext:
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.15.2
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
+# ---
 
-Outline code test for IGRF SV candidate evaluation
-
+# %% [markdown]
+# # Outline code test for IGRF-SV candidate evaluation
+#
+# # Example for the IGRF-SV candidates
+#
 # Load available candidates
-#    Figure out the ordering and labels from each candidate - have a strict
-#    naming convention?
+#
+# Use the alphebetical ordering and labels from each candidate.
+#
+# There is a set naming convention: 
+# - first three lines start with # 
+# - third line has: g h       n           m      n_uncertainty m_uncertainty
+# - data starts on fourth line e.g.:   1  0 11.40      0.00            0.00            0.00
+#
+# Tests are:
+#
+# 0) Check files are correctly formatted, then:
+# 1) Lowes-Maursberger power spectra plot
+# 2) RMS differences between coefficients table and plot  
+# 3) Degree correlation between coefficients and one chosen model
+# 4) Azimuthal spectra between coefficients and one chosen model
+# 5) Triangle plot of differences between coefficients and one chosen model
+# 6) Maps magnetic field in: X, Y, Z, Br, Bt, Bp between coefficients and one chosen model
+#
 
-#  Tests are - 
-Check files are correctly formatted, then:
-1) power spectra 
-2) RMS differences  
-3) Degree correlation
-4) Azimuthal spectra
-5) Triangle plot of differences
-6) maps of comparison in X, Y, Z, Br, Bt, Bp
-
-
-"""
-# Import the packages and bespoke functions
+# %%
+# Import the packages and bespoke functions from src folder
 import os
 import sys
 import glob
@@ -31,6 +51,8 @@ sys.path.append('..')
 import shapefile  # from package pyshp >= 2.3.1, pip install pyshp
 shp = os.path.abspath('../data/external/ne_110m_coastline.zip')
 
+from src import sha_lib as shal
+from src import shc_utils as shau
 
 # Set up line colour/type/marker properties using cycler
 from cycler import cycler
@@ -38,20 +60,24 @@ cc = ( cycler(linestyle=['-', '--', '-.',':']) *
        cycler(color=list('rgbk')) * 
        cycler(marker=['none', 's', '.']))
 
-from src import sha_lib as shal
-from src import shc_utils as shau
+# %% [markdown]
+# # User sets the following variables:
+#
 
-
-# Access candidate models in the data/coefficients/DGRF directory
+# %%
+# Access candidate models in the ../data/IGRF13/DGRF directory
 # Declare the fixed constants
-field_type = 'sv'
-candidate = 'SV'
-year = '2025'
+field_type = 'sv'   # 'main' or 'sv'
+candidate = 'SV'    # 'DGRF', 'IGRF' or 'SV'
+year = '2025'         # For labelling
+
 IGRFSV_DIR = os.path.abspath('../data/coefficients/' + candidate + '/*.cof')
-# Choose a model to compare the others against using its filename e.g.
+
+# Choose a model from the candidate list to compare the others against using its filename e.g.
+# The Robust version was chosen for the SV final model
 compare_against = 'IGRF13'
 
-
+# %%
 """
 
 Check files are correctly formatted
@@ -74,6 +100,7 @@ if not(pass_or_fail).all():
 num_candidates = coeffs.shape[1]
 
 
+# %%
 """
 
 First Test: plot of power spectra of each model on a log plot (n versus Rn)
@@ -94,7 +121,7 @@ spectra = dict(zip(institute_name, Rn))
 for label, y in spectra.items():
    ax.semilogy(np.arange(1, degree+1), y, label = label)
 # Adding legend, x and y labels, and title for the lines
-ax.legend(ncols=2, loc=3)
+ax.legend(ncols=2)
 plt.xlabel('Degree (n)')
 plt.ylabel('R_n ([nT/yr]^2)') 
 ax.grid()
@@ -104,15 +131,17 @@ plt.title('Mausberger-Lowes Spectrum for ' + candidate +
           ' ' + year + ' candidates')
 
 
+
+# %%
 """
 
-Second Test: heatmap plot of RMS difference between each model (dP)
+Second Test: plot of RMS difference between each model (dP)
 
 """
 
 # filling dP with NaN values makes the imshow plot background white
 dP = np.full((num_candidates,num_candidates),np.nan)
-for i in range(0,num_candidates):
+for i in range(num_candidates):
     for j in range(i+1,num_candidates):
         dP[i,j] = np.sqrt( 
                     np.sum( 
@@ -120,12 +149,12 @@ for i in range(0,num_candidates):
                     np.arange(2,degree+2), 
                     shau.msumnsq( (coeffs[:,i] - coeffs[:,j])**2, degree) )))
     
-# Print to screen one or two decimal places
+# Print to screen two decimal places
 print('RMS Difference between ' + candidate + ' ' + year + ' candidates')
 pdP = dP.copy()
 pdP[np.isnan(pdP)]=0
-for i in np.around(pdP,1):
-    print(" ".join([str(l).rjust(4) for l in i]))
+for i in np.around(pdP,2):
+    print(" ".join([str(l).rjust(5) for l in i]))
 
 fig, ax = plt.subplots(figsize=(10, 10)) 
 plt.subplots_adjust(top=0.91, bottom=0.13, left=0.075, right=0.965)
@@ -152,6 +181,7 @@ for i in range(num_candidates):
         kw.update(color=textcolors[int(im.norm(dP[i, j]) > threshold)])
         text = ax.text(j, i, valfmt(dP[i, j]), **kw)
 
+# %%
 """
 
 Third Test: plot of RMS difference per degree between each model (dP_degree)
@@ -165,7 +195,7 @@ dC_degree = []
 # Find the requested model position (pos) in the file list
 pos = np.array([i for i, elem in enumerate(files) if compare_against in elem])
 
-for j in range(0,num_candidates):
+for j in range(num_candidates):
     
         dP_degree.append( np.multiply( 
                     np.arange(2,degree+2), 
@@ -218,6 +248,7 @@ plt.xticks(np.arange(1, degree+1, 2))
 plt.xlim(1,degree)
 
 
+# %%
 """
 
 Fourth Test: Plot the azimuthal power spectrum of each candidate
@@ -250,6 +281,7 @@ plt.title('Azimuthal Spectrum for ' + candidate +
           ' ' + year + ' candidates')
 plt.xlim((-1.01, 1.01))
 
+# %%
 """
 
 Fifth Test: Plot a series of small triangles showing the main field or SV 
@@ -258,8 +290,7 @@ coefficient differences  against the other candidates
 
 """
 # Define the contour levels to use in imshow
-min_max = 2.5 #nT
-
+min_max = 0.4 #nT
 
 # Work out the best layout of the plots in a subfigure e.g. 4 x 4 
 # using the sqrt and remainder
@@ -280,7 +311,6 @@ for j in range(num_candidates):
     # skip the pos[0] model (or it will be empty)
     
     if j != pos[0]: 
-
         tri_gh = shau.gh2triangle(coeffs[:,pos[0]] - coeffs[:,j], degree)
         
         # Title each subplot with the name of the model
@@ -288,7 +318,6 @@ for j in range(num_candidates):
         cs = axs[axis_count].imshow(tri_gh, cmap='RdBu')
         cs.set_clim(-min_max, min_max)
 
-        # Set the degree labels
         axs[axis_count].set_yticks(np.arange(0, degree,2))
         axs[axis_count].set_yticklabels(np.arange(1,degree+1,2))
         axs[axis_count].set_ylabel('Degree')
@@ -299,7 +328,6 @@ for j in range(num_candidates):
         axs[axis_count].set_xlabel('Order')
 
         axis_count += 1 
-
 
 plt.suptitle('Difference between Candidate ' + 
              compare_against +  ' / ' + candidate + ' ' + year + ' candidates')
@@ -317,12 +345,15 @@ fig.subplots_adjust(bottom=0.125, top=0.95, left=0.075, right=0.95,
 cbar_ax = fig.add_axes([0.2, 0.06, 0.6, 0.015])
 
 # Draw the colorbar
-cbar=fig.colorbar(cs, cax=cbar_ax,orientation='horizontal', label='[nT/yr]^2')
+cbar=fig.colorbar(cs, cax=cbar_ax,orientation='horizontal', label='nT/yr')
 
+# %%
 """
 
 Sixth Test: Plot a series of small maps showing the main field or SV 
-differences in a chosen component (default 'Br') against the other candidates 
+differences in a chosen component (default 'Z') against the other candidates 
+
+Can take several minutes depending on the machine speed
 
 Based on the example from
 https://kpegion.github.io/Pangeo-at-AOES/examples/multi-panel-cartopy.html
@@ -332,9 +363,10 @@ https://kpegion.github.io/Pangeo-at-AOES/examples/multi-panel-cartopy.html
 
 component = 'Br'    # Choose X, Y or Z, Br, Bt, Bp
 
+
 # Define the contour levels to use in plt.contourf
 min_max = 50 #nT
-contour = 2 # nT
+contour = 5 # nT
 clevs=np.arange(-min_max,min_max+1,contour)
 
 # Work out the best layout of the plots in a subfigure e.g. 4 x 4 
@@ -361,7 +393,7 @@ axs=axs.flatten()
 # Use an axis counter to ensure no gaps in the middle subplots
 axis_count = 0
 #Loop over all of the models
-for j in range(0,num_candidates):
+for j in range(num_candidates):
     # Compute the Gauss coefficient differences
     # skip the pos[0] model (or it will be empty)
     
@@ -393,12 +425,11 @@ for j in range(0,num_candidates):
                                          elements[component],
                                          levels=[0], alpha=0.3,
                                          colors=['black'], linewidths=1)
-
+        
         # Title each subplot with the name of the model
         axs[axis_count].set_title(institute_name[j])
 
         # Draw the coastines for each subplot
-        #axs[axis_count].coastlines('110m', alpha=0.1)
         # read shape-file and plot coast lines
         with shapefile.Reader(shp) as sf:
 
@@ -412,7 +443,6 @@ for j in range(0,num_candidates):
         axs[axis_count].yaxis.set_ticks(np.radians(np.linspace(-60., 60., num=5)))  # parallels
         axs[axis_count].xaxis.set_major_formatter('')  # remove labels from meridians
         axs[axis_count].grid(False)
-        
         axis_count += 1 
 
 plt.suptitle('Difference in ' + component + ' between Candidate ' + 
@@ -431,4 +461,6 @@ fig.subplots_adjust(bottom=0.2, top=0.9, left=0.05, right=0.95,
 cbar_ax = fig.add_axes([0.2, 0.1, 0.6, 0.015])
 
 # Draw the colorbar
-cbar=fig.colorbar(cs, cax=cbar_ax, orientation='horizontal', label='nT/yr')
+cbar=fig.colorbar(cs, cax=cbar_ax,orientation='horizontal', label='nT/yr')
+
+# %%
