@@ -13,9 +13,7 @@
 # ---
 
 # %% [markdown]
-# # Outline code test for IGRF candidate evaluation
-#
-# # Example for the DGRF candidates 
+# # DGRF candidates 
 #
 # Load available candidates
 #
@@ -37,7 +35,7 @@
 # 6) Maps magnetic field in: X, Y, Z, Br, Bt, Bp between coefficients and one chosen model
 #
 
-# %%
+# %% editable=true slideshow={"slide_type": ""}
 # Import the packages and bespoke functions from src folder
 import os
 import sys
@@ -61,10 +59,11 @@ cc = ( cycler(linestyle=['-', '--', '-.',':']) *
        cycler(marker=['none', 's', '.']))
 
 # %% [markdown]
-# # User sets the following variables:
+# ## Configure input
 #
+# User sets the following variables:
 
-# %%
+# %% editable=true slideshow={"slide_type": ""}
 # Access candidate models in the ../data/IGRF13/DGRF directory
 # Declare the fixed constants
 field_type = 'main'   # 'main' or 'sv'
@@ -100,6 +99,9 @@ if not(pass_or_fail).all():
 num_candidates = coeffs.shape[1]
 
 
+# %% [markdown]
+# ## Power spectra
+
 # %%
 """
 
@@ -131,6 +133,9 @@ plt.title('Mausberger-Lowes Spectrum for ' + candidate +
           ' ' + year + ' candidates')
 
 
+
+# %% [markdown]
+# ## RMS differences
 
 # %%
 """
@@ -180,6 +185,9 @@ for i in range(num_candidates):
     for j in range(i+1,num_candidates):
         kw.update(color=textcolors[int(im.norm(dP[i, j]) > threshold)])
         text = ax.text(j, i, valfmt(dP[i, j]), **kw)
+
+# %% [markdown]
+# ## RMS differences per degree
 
 # %%
 """
@@ -248,6 +256,9 @@ plt.xticks(np.arange(1, degree+1, 2))
 plt.xlim(1,degree)
 
 
+# %% [markdown]
+# ## Azimuthal power spectra
+
 # %%
 """
 
@@ -280,6 +291,9 @@ ax.grid()
 plt.title('Azimuthal Spectrum for ' + candidate + 
           ' ' + year + ' candidates')
 plt.xlim((-1.01, 1.01))
+
+# %% [markdown]
+# ## Triangle plot of differences
 
 # %%
 """
@@ -346,6 +360,9 @@ cbar_ax = fig.add_axes([0.2, 0.06, 0.6, 0.015])
 
 # Draw the colorbar
 cbar=fig.colorbar(cs, cax=cbar_ax,orientation='horizontal', label='nT')
+
+# %% [markdown]
+# ## Magnetic field maps
 
 # %%
 """
@@ -463,5 +480,3 @@ cbar_ax = fig.add_axes([0.2, 0.1, 0.6, 0.015])
 
 # Draw the colorbar
 cbar=fig.colorbar(cs, cax=cbar_ax,orientation='horizontal', label='nT')
-
-# %%
