@@ -1,0 +1,8 @@
+format: jb-book
+root: README
+parts:
+- caption: Candidate examples
+  chapters:
+  - file: notebooks/DGRF_candidate_comparison
+  - file: notebooks/IGRF_candidate_comparison
+  - file: notebooks/SV_candidate_comparison

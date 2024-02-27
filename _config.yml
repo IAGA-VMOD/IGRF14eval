@@ -1,0 +1,22 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+title: IGRF-14 Evaluation
+author: "IAGA V MOD"
+logo: ""
+only_build_toc_files: true
+
+execute:
+  execute_notebooks: off
+
+launch_buttons:
+  notebook_interface        : jupyterlab
+  jupyterhub_url            : "https://vre.vires.services"
+  binderhub_url             : "https://mybinder.org"
+
+repository:
+  url: https://github.com/IAGA-VMOD/IGRF14eval/
+  branch: main
+
+html:
+  use_repository_button: true
+  home_page_in_navbar: false

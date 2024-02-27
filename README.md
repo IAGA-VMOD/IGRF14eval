@@ -1,3 +1,5 @@
+# IGRF-14 Evaluation
+
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/IAGA-VMOD/IGRF14eval/main)
 
 Python code and Gauss coefficients from the 14 generation of the IGRF candidate evaluation.
