@@ -22,7 +22,7 @@ jobs:
       - name: Setup conda environments from lock files
         shell: bash -el {0}
         run: |
-          conda create --name bookbuilder --file .bookbuilder/conda-linux-64.lock
+          conda create --name bookbuilder --file bookbuilder/conda-linux-64.lock
           conda create --name igrf --file binder/lockfiles/conda-linux-64.lock
           conda run --no-capture-output -n igrf python -m ipykernel install --user --name igrf
       # Execute notebooks and build book
