@@ -16,3 +16,7 @@ launch_buttons:
 repository:
   url: https://github.com/IAGA-VMOD/IGRF14eval/
   branch: main
+
+html:
+  use_repository_button: true
+  home_page_in_navbar: false
