@@ -1,6 +1,6 @@
 # IGRF-14 Evaluation
 
-[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)]([https://iaga-vmod.github.io/IGRF14eval/])
+[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://iaga-vmod.github.io/IGRF14eval/)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/IAGA-VMOD/IGRF14eval/main)
 
 Python code and Gauss coefficients from the 14 generation of the IGRF candidate evaluation. Check the Book and Binder links above to view and execute the notebooks.
