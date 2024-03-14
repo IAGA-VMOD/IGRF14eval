@@ -25,13 +25,13 @@ Code based on GitHub repos: IAGA Summer School Python exercises and ChaosMagPy
 ## Submission guide
 
 1. Prepare your model coefficients in the `.cof` format
-2. Test them by running the notebooks:
-   a) Using the [Binder link](https://mybinder.org/v2/gh/IAGA-VMOD/IGRF14eval/main)
-   b) Locally on your machine (see below)
-3. Open a Pull Request to add your model coefficients. You can do this through the GitHub web interface (see instructions in [docs/submission_guide_GitHub_web.pdf](docs/submission_guide_GitHub_web.pdf)), or using git yourself:
-   a) [Fork](https://github.com/IAGA-VMOD/IGRF14eval/fork) this repository
-   b) Clone your fork onto your machine
-   c) Create a branch and add your coefficients
+2. Test them by running the notebooks:  
+   a) Using the [Binder link](https://mybinder.org/v2/gh/IAGA-VMOD/IGRF14eval/main)  
+   b) Locally on your machine (see below)  
+3. Open a Pull Request to add your model coefficients. You can do this through the GitHub web interface (see instructions in [docs/submission_guide_GitHub_web.pdf](docs/submission_guide_GitHub_web.pdf)), or using git yourself:  
+   a) [Fork](https://github.com/IAGA-VMOD/IGRF14eval/fork) this repository  
+   b) Clone your fork onto your machine  
+   c) Create a branch and add your coefficients  
       ```
       git checkout -b <branch-name>
       git add data/coefficients/DGRF/DGRF_<candidate-name>.cof
