@@ -74,8 +74,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: html-preview
-      - name: (Debug)
-        run: ls -R
+          path: _build/html
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
