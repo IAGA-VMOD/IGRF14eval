@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
     binder:
+      name: Build image for Binder
       runs-on: ubuntu-latest
       steps:
       - name: Checkout Code
@@ -16,6 +17,6 @@ jobs:
           DOCKER_REGISTRY: ghcr.io
           DOCKER_USERNAME: ${{ github.actor }}
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-          IMAGE_NAME: IAGA-VMOD/IGRF14eval
+          IMAGE_NAME: iaga-vmod/igrf14eval
           BINDER_CACHE: true
           PUBLIC_REGISTRY_CHECK: true
