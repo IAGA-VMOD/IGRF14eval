@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - build-jupyterbook
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -35,15 +35,15 @@ jobs:
         if: success() || failure()
         shell: bash -el {0}
         run: conda run -n bookbuilder jupyter-book build .
-      - name: Upload artifact to pass to GitHub Pages
-        if: success() || failure()
+      - name: Upload artifact to pass to GitHub Pages (if on main branch)
+        if: ${{ github.ref == 'refs/heads/main' && (success() || failure()) }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: _build/html
-  deploy:
-    name: Deploy to GitHub Pages
+  deploy-main:
+    name: Deploy main branch to GitHub Pages
     needs: build
-    if: success() || failure()
+    if: ${{ github.ref == 'refs/heads/main' && (success() || failure()) }}
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
         pages: write      # to deploy to Pages
@@ -58,3 +58,16 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+  deploy-preview:
+    name: Deploy PR preview to Netlify
+    needs: build
+    if: ${{ github.event.pull_request && (success() || failure()) }}
+    uses: nwtgck/actions-netlify@v3.0
+    with:
+      publish-dir: './_build/html'
+        production-deploy: false
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        enable-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_API_ID }}
