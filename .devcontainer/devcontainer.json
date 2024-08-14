@@ -1,0 +1,18 @@
+{
+    "name": "IGRF-14 Evaluation",
+    "image": "mcr.microsoft.com/vscode/devcontainers/miniconda",
+    "features": {
+      "ghcr.io/devcontainers/features/conda:1": {
+        "version": "latest"
+      }
+    },
+    "postCreateCommand": "conda create --name igrf --file binder/lockfiles/conda-linux-64.lock && conda activate igrf",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "ms-python.python",
+          "ms-toolsai.jupyter"
+        ]
+      }
+    }
+  }
