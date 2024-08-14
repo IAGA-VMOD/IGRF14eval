@@ -2,6 +2,10 @@ name: Cache Docker image for Binder to use
 
 on: [push]
 
+permissions:
+  packages: write
+  contents: write
+
 jobs:
     binder:
       name: Build image for Binder
