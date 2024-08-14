@@ -24,3 +24,4 @@ jobs:
           IMAGE_NAME: iaga-vmod/igrf14eval
           BINDER_CACHE: true
           PUBLIC_REGISTRY_CHECK: true
+          FORCE_REPO2DOCKER_VERSION: 2024.07.0
