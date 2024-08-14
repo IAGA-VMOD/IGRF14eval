@@ -35,11 +35,16 @@ jobs:
         if: success() || failure()
         shell: bash -el {0}
         run: conda run -n bookbuilder jupyter-book build .
-      - name: Upload artifact to pass to GitHub Pages or  Netlify
-        if: success() || failure()
+      - name: Upload artifact to pass to GitHub Pages
+        if: ${{ github.ref == 'refs/heads/main' && (success() || failure()) }}
         uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
+          path: _build/html
+      - name: Upload artifact to pass to Netlify
+        if: ${{ github.event.pull_request && (success() || failure()) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-preview
           path: _build/html
   deploy-main:
     name: Deploy main branch to GitHub Pages
@@ -68,7 +73,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: github-pages
+          name: html-preview
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
