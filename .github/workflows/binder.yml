@@ -15,14 +15,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: (Debug) List binder directory contents
-        run: ls -l binder
       - name: update jupyter dependencies with repo2docker
         uses: jupyterhub/repo2docker-action@master
         with:
           DOCKER_REGISTRY: ghcr.io
           DOCKER_USERNAME: ${{ github.actor }}
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-          IMAGE_NAME: iaga-vmod/igrf14eval
           BINDER_CACHE: true
           PUBLIC_REGISTRY_CHECK: true
+          MYBINDERORG_TAG: ${{ github.event.ref }}
