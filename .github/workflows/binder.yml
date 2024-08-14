@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - binder-cache
+  workflow_dispatch:
 
 permissions:
   packages: write
