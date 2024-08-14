@@ -49,10 +49,10 @@ Code based on GitHub repos: IAGA Summer School Python exercises and ChaosMagPy
 - This can be done manually without using conda if you provide `numpy`, `pandas`, `matplotlib`, `pyshp` (check [environment-base.yml](https://github.com/IAGA-VMOD/IGRF14eval/blob/main/environment-base.yml) for specific versions).
 - (Recommended) Use the conda lockfile for your platform. Run one of:
     ```
-    conda create --name igrf --file binder/lockfiles/conda-linux-64.lock
-    conda create --name igrf --file binder/lockfiles/conda-osx-64.lock
-    conda create --name igrf --file binder/lockfiles/conda-osx-arm64.lock
-    conda create --name igrf --file binder/lockfiles/conda-win-64.lock
+    conda create --name igrf --file lockfiles/conda-linux-64.lock
+    conda create --name igrf --file lockfiles/conda-osx-64.lock
+    conda create --name igrf --file lockfiles/conda-osx-arm64.lock
+    conda create --name igrf --file lockfiles/conda-win-64.lock
     ```
     (and activate it with `conda activate igrf` when you need to use it)
 
