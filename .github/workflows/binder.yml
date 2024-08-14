@@ -1,6 +1,10 @@
 name: Cache Docker image for Binder to use
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - binder-cache
 
 permissions:
   packages: write
@@ -21,6 +25,7 @@ jobs:
           DOCKER_REGISTRY: ghcr.io
           DOCKER_USERNAME: ${{ github.actor }}
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          IMAGE_NAME: iaga-vmod/igrf14eval
           BINDER_CACHE: true
           PUBLIC_REGISTRY_CHECK: true
           MYBINDERORG_TAG: ${{ github.event.ref }}
