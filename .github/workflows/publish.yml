@@ -1,4 +1,4 @@
-name: Build and Deploy GitHub Pages
+name: Build and Deploy Jupyter-Book
 
 on:
   push:
@@ -73,4 +73,4 @@ jobs:
           enable-pull-request-comment: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_API_ID }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
