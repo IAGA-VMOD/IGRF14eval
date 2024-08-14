@@ -1,0 +1,21 @@
+name: Cache Docker image for Binder to use
+
+on: [push]
+
+jobs:
+    binder:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: update jupyter dependencies with repo2docker
+        uses: jupyterhub/repo2docker-action@master
+        with:
+          DOCKER_REGISTRY: ghcr.io
+          DOCKER_USERNAME: ${{ github.actor }}
+          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          IMAGE_NAME: IAGA-VMOD/IGRF14eval
+          BINDER_CACHE: true
+          PUBLIC_REGISTRY_CHECK: true
