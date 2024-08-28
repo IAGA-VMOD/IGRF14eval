@@ -170,7 +170,7 @@ plt.xticks(np.arange(0, num_candidates,1))
 ax.set_xticklabels(institute_name)
 plt.yticks(np.arange(0, num_candidates,1))
 ax.set_yticklabels(institute_name)
-ax.grid(True, ls='ls')
+ax.grid(True, ls=':')
 plt.colorbar(label='nT')
 plt.title('RMS Difference between ' + candidate + ' ' + year + ' candidates')
 plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
