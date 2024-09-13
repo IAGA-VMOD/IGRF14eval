@@ -7,6 +7,9 @@ on:
   pull_request_target:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -42,12 +45,12 @@ jobs:
         shell: bash -el {0}
         run: conda run -n bookbuilder jupyter-book build .
       - name: Upload artifact to pass to GitHub Pages
-        if: ${{ github.ref == 'refs/heads/main' && (success() || failure()) }}
+        if: ${{ github.event_name != 'pull_request_target' && github.ref == 'refs/heads/main' && (success() || failure()) }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: _build/html
       - name: Upload artifact to pass to Netlify
-        if: ${{ github.event.pull_request && (success() || failure()) }}
+        if: ${{ github.event_name == 'pull_request_target' && (success() || failure()) }}
         uses: actions/upload-artifact@v4
         with:
           name: html-preview
@@ -55,7 +58,7 @@ jobs:
   deploy-main:
     name: Deploy main branch to GitHub Pages
     needs: build
-    if: ${{ github.ref == 'refs/heads/main' && (success() || failure()) }}
+    if: ${{ github.event_name != 'pull_request_target' && github.ref == 'refs/heads/main' && (success() || failure()) }}
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
         pages: write      # to deploy to Pages
@@ -73,7 +76,7 @@ jobs:
   deploy-preview:
     name: Deploy PR preview to Netlify
     needs: build
-    if: ${{ github.event.pull_request && (success() || failure()) }}
+    if: ${{ github.event_name == 'pull_request_target' && (success() || failure()) }}
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
