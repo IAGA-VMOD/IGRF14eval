@@ -7,9 +7,6 @@ on:
   pull_request_target:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -24,6 +21,8 @@ jobs:
       # Set up the execution environment
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Initialise conda
         uses: conda-incubator/setup-miniconda@v3
         with:
@@ -45,7 +44,7 @@ jobs:
         shell: bash -el {0}
         run: conda run -n bookbuilder jupyter-book build .
       - name: Upload artifact to pass to GitHub Pages
-        if: ${{ github.event_name != 'pull_request_target' && github.ref == 'refs/heads/main' && (success() || failure()) }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && (success() || failure()) }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: _build/html
@@ -58,7 +57,7 @@ jobs:
   deploy-main:
     name: Deploy main branch to GitHub Pages
     needs: build
-    if: ${{ github.event_name != 'pull_request_target' && github.ref == 'refs/heads/main' && (success() || failure()) }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && (success() || failure()) }}
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
         pages: write      # to deploy to Pages
