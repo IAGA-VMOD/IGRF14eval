@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# %%
 """
 Created on Sun Oct  6 22:27:26 2024
 
@@ -61,7 +62,7 @@ xgrf_median = np.median(coeffs,axis=1)
 
 
 
-# %% Write out files 
+# %% Write out files
 decimal_places = 2
 
 filename = os.path.abspath('../data/coefficients/' + candidate + '/' 
