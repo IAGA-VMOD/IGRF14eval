@@ -522,6 +522,78 @@ def gh2triangle(coeffs,nmax):
     
     return tri_gh
 
+def write_coefficients_to_cof(filename, coeff_array, uncertainty_array, 
+                              degree, header, dp=2):
+    """
+    Write out the coefficient files 
+    Truncate Gauss coefficients to two decimal places unless other
+    
+
+    Parameters
+    ----------
+    filename: str
+        path of the file e.g DGRF_Median.cof
+    coeff_array : float, n x 1
+        numpy array of Gauss coefficients to be written out
+    uncertainty_array : float, , n x 1
+        numpy array of uncertainties coefficients to be written out
+    degree : str, int
+        Degree of the file
+    header : string
+        name of the model for the header e.g. DGRF Median 
+    dp : int
+        number of decimal places to truncate the numpy array to
+        
+    
+
+    Returns
+    -------
+    None.
+
+    """
+    # check if degree is an int or str
+    
+    if degree == 'main':
+        degree = 13
+    elif degree == 'sv':
+        degree = 8
+    
+    outarray_len = np.cumsum(np.arange(2,degree+2))[-1]
+    
+    # Generate the ordering of the g/h elements
+    gh_labels = []
+    for l in range(1,degree+1):
+        gh_labels.append(np.stack([np.ones(l+1)*l, np.arange(0,l+1)]).T)
+        
+    ghl = np.vstack(gh_labels)
+
+    # Check the uncertainty array exists and has values
+    # If not, set up an n x 2 array
+    if np.size(uncertainty_array) == 0:
+        uncertainty_array = np.zeros([outarray_len,2])
+
+                 
+    # Format the array in to outarray_len x 2 with the h_1^0 coefficient set to 0
+    ghs = np.insert(coeff_array,np.cumsum(np.arange(1,degree+1)*2-1),0)
+    gho = np.round(np.reshape(ghs, [outarray_len, 2]), dp)
+    
+    # Write out the coefficients
+    out = np.hstack([ghl, gho, uncertainty_array])
+    
+    with open(filename,"w") as f:
+        f.writelines(['# Candidate model for IGRF-14 \n'])
+        f.writelines(['# Analysis for' + header + '\n'])
+        f.writelines(['# n  m         gnm         hnm       uncertainty_gnm       uncertainty_hnm \n'])
+        np.savetxt(f, out, fmt='  %d  %d   %10.' +str(dp)+ 'f '
+                                +  '%10.' +str(dp)+ 'f '
+                                + ' %8.' +str(dp)+ 'f ' 
+                                + ' %8.' +str(dp)+ 'f', delimiter=' ', 
+                                                           newline='\n')
+    
+    f.close()
+    
+    
+    
             
             
     

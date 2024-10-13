@@ -74,7 +74,7 @@ IGRFSV_DIR = os.path.abspath('../data/coefficients/' + candidate + '/*.cof')
 
 # Choose a model from the candidate list to compare the others against using its filename e.g.
 # The Robust version was chosen for the SV final model
-compare_against = 'IGRF13'
+compare_against = 'Median'
 
 # %%
 """
@@ -116,7 +116,7 @@ ax.set_prop_cycle(cc)
 # Place the Rn values and institute names in a dictionary
 Rn = []
 for i in range(num_candidates):
-    Rn.append(shau.msum(coeffs[:,i], degree))
+    Rn.append(shau.msum(coeffs[:,i], degree)*np.arange(2,degree+2))
 spectra = dict(zip(institute_name, Rn))
 
 # Plotting the lines with labels
