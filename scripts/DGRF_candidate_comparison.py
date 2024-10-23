@@ -338,7 +338,7 @@ for j in range(num_candidates):
         axs[axis_count].set_ylabel('Degree')
 
         # Set the +/- order
-        axs[axis_count].set_xticks([1,degree+1, degree*2-1])
+        axs[axis_count].set_xticks([0,degree, degree*2])
         axs[axis_count].set_xticklabels([-degree, 0, degree])
         axs[axis_count].set_xlabel('Order')
 

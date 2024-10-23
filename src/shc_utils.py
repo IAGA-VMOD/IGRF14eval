@@ -511,12 +511,12 @@ def gh2triangle(coeffs,nmax):
     tri_gh =  np.full((nmax, 2*nmax+1),np.nan)
     
     k = 0
-    for n in range(nmax):
+    for n in range(1,nmax+1):
         for m in range(0,n+1):
-            tri_gh[n, nmax+m] = coeffs[k]
+            tri_gh[n-1, nmax+m] = coeffs[k]
             k += 1
             if m > 0:
-                tri_gh[n, nmax-m] = coeffs[k]
+                tri_gh[n-1, nmax-m] = coeffs[k]
                 k += 1
                 
     
