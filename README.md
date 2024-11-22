@@ -3,7 +3,13 @@
 [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://iaga-vmod.github.io/IGRF14eval/)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/IAGA-VMOD/IGRF14eval/main)
 
-Python code and Gauss coefficients from the 14 generation of the IGRF candidate evaluation. Check the Book and Binder links above to view and execute the notebooks.
+---
+
+**NB: If you are looking for the IGRF-14 release itself, see https://doi.org/10.5281/zenodo.14012302 and https://www.ncei.noaa.gov/products/international-geomagnetic-reference-field**
+
+This repository was used to collate and evaluate the candidate models that contributed to IGRF-14. Check the Book and Binder links above to view and execute the notebooks.
+
+---
 
 Based on:
 Alken, P., Thébault, E., Beggan, C.D. et al. Evaluation of candidate models for the 13th generation
