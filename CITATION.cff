@@ -93,8 +93,8 @@ authors:
 - family-names: Lauridsen
   given-names: Jonas Bregnhøj
   orcid: https://orcid.org/0000-0001-9520-0491
-- family-names: Lemgharb
-  given-names: Abdelnaceur
+- family-names: Lemgharbi
+  given-names: Abdenaceur
   orcid: https://orcid.org/0000-0002-0558-0679
 - family-names: Lesur
   given-names: Vincent
@@ -186,6 +186,9 @@ authors:
 - family-names: Wang
   given-names: Jie
   orcid: https://orcid.org/0000-0001-7522-9422
+- family-names: Wardinski
+  given-names: Ingo
+  orcid: https://orcid.org/0000-0001-8125-9476
 - family-names: Watson
   given-names: Callum
   orcid: https://orcid.org/0000-0001-8807-6736
