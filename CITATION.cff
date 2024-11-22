@@ -24,6 +24,9 @@ authors:
 - family-names: Aubert
   given-names: Julien
   orcid: https://orcid.org/0000-0002-2756-0724
+- family-names: Baerenzung
+  given-names: Julien
+  orcid: https://orcid.org/0000-0002-0607-3695
 - family-names: Brown
   given-names: William
   orcid: https://orcid.org/0000-0001-9045-9787
@@ -75,9 +78,15 @@ authors:
 - family-names: Holme
   given-names: Richard
   orcid: https://orcid.org/0009-0002-2178-2083
+- family-names: Holschneider
+  given-names: Matthias
+  orcid: https://orcid.org/0000-0003-3987-105X
 - family-names: Jiang
   given-names: Yi
   orcid: https://orcid.org/0000-0003-3330-058X
+- family-names: Kada
+  given-names: Martin
+  orcid: https://orcid.org/0000-0002-7490-7452
 - family-names: Korte
   given-names: Monika
   orcid: https://orcid.org/0000-0003-2970-9075
@@ -159,6 +168,9 @@ authors:
 - family-names: Sato
   given-names: Sho
   orcid: https://orcid.org/0009-0007-8811-9573
+- family-names: Saynisch-Wagner
+  given-names: Jan
+  orcid: https://orcid.org/0000-0001-9619-0336
 - family-names: Schanner
   given-names: Max
   orcid: https://orcid.org/0000-0002-0497-9231
