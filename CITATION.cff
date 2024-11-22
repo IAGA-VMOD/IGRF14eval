@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Code in this repository is licensed under MIT, while data and documentation are licensed under CC BY 4.0. Refer to the repository LICENSE files for details."
 title: IGRF-14 Evaluation
 repository-code: https://github.com/IAGA-VMOD/IGRF14eval
-license: MIT AND CC-BY-4.0
+license: MIT
 authors:
 # Evaluation code
 - family-names: Beggan
