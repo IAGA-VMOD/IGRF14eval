@@ -2,6 +2,7 @@
 
 [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://iaga-vmod.github.io/IGRF14eval/)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/IAGA-VMOD/IGRF14eval/main)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14205633.svg)](https://doi.org/10.5281/zenodo.14205633)
 
 ---
 
@@ -10,6 +11,56 @@
 This repository was used to collate and evaluate the candidate models that contributed to IGRF-14. Check the Book and Binder links above to view and execute the notebooks.
 
 ---
+
+## Repository layout
+
+```
+binder/
+   # Configuration for Binder service
+bookbuilder/
+   # Conda environment to generate Jupyter Book (html)
+data/
+   # Data files, including candidate coefficients and release coefficients
+docs/
+   # Reports from candidate teams
+lockfiles/
+   # Conda environment against which to execute notebooks
+matlab/
+   # Matlab code to run separately (Huber-weighted mean in space) - used for IGRF2025 and SV2025-30
+notebooks/
+   # Jupyter Notebooks that verify and compare candidate models
+scripts/
+   # .py files synchronised with notebooks using jupytext
+src/
+   # Python module used by notebooks
+```
+
+## Overview of process
+
+```mermaid
+graph TD
+    subgraph Submissions
+        DGRF-C[DGRF Candidates]
+        IGRF-C[IGRF Candidates]
+        SV-C[SV Candidates]
+    end
+    subgraph Final models
+        DGRF-C -->|Median| DGRF[DGRF2020]
+        IGRF-C -->|Huber*| IGRF[IGRF2025]
+        SV-C -->|Huber*| SV[SV2025-30]
+    end
+    DGRF & IGRF & SV --> IGRF-14[IGRF-14]
+```
+
+*Huber = Huber-weighted mean in space*
+
+1. Modelling teams submitted candidates for one or more of (DGRF, IGRF, SV)  
+   *See `data/coefficients/`*
+2. Task Force evaluated and compared models
+3. Task Force voted on method of merging each set of model coefficients
+
+
+## Candidate evaluation
 
 Based on:
 Alken, P., Thébault, E., Beggan, C.D. et al. Evaluation of candidate models for the 13th generation
