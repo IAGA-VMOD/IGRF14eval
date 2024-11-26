@@ -593,7 +593,58 @@ def write_coefficients_to_cof(filename, coeff_array, uncertainty_array,
     f.close()
     
     
+def load_shcfile(filepath):
+    """
+    Load shc-file and return coefficient arrays.
+
+    Parameters
+    ----------
+    filepath : str
+        File path to spherical harmonic coefficient shc-file.
+
+
+    Returns
+    -------
+    time : ndarray, shape (N,)
+        Array containing `N` times for each model snapshot 
+    coeffs : ndarray, shape (nmax(nmax+2), N)
+        Coefficients of model snapshots. Each column is a snapshot up to
+        spherical degree and order `nmax`.
+    parameters : dict, {'SHC', 'nmin', 'nmax', 'N', 'order', 'step'}
+        Dictionary containing parameters of the model snapshots and the
+        following keys: ``'SHC'`` shc-file name, `nmin` minimum degree,
+        ``'nmax'`` maximum degree, ``'N'`` number of snapshot models,
+        ``'order'`` piecewise polynomial order and ``'step'`` number of
+        snapshots until next break point. Extract break points of the
+        piecewise polynomial with ``breaks = time[::step]``.
+
+    """
     
-            
-            
-    
+    read_values_flag = False
+
+    with open(filepath, 'r') as f:
+
+        data = np.array([])
+        for line in f.readlines():
+
+            if line[0] == '#':
+                continue
+
+            read_line = np.fromstring(line, sep=' ')
+            if (read_line.size == 7) and not(read_values_flag):
+                name = os.path.split(filepath)[1]  # file name string
+                values = [name] + read_line.astype(int).tolist()
+                read_values_flag = True
+            else:
+                data = np.append(data, read_line)
+
+        # unpack parameter line
+        keys = ['SHC', 'nmin', 'nmax', 'N', 'order', 'step', 'start_year', 'end_year']
+        parameters = dict(zip(keys, values))
+        
+        time = data[:parameters['N']]
+        coeffs = data[parameters['N']:].reshape((-1, parameters['N']+2))
+        coeffs = np.squeeze(coeffs[:, 2:])  # discard columns with n and m
+
+
+    return time, coeffs, parameters
