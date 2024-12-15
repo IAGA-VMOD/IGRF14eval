@@ -21,7 +21,7 @@ function [m_i_huber,m_median,TABLE] = Huber_Weight_calculation_IGRF14(TYPE)
 %	Uses the Matlab Statistical Toolbox robustfit.m
 %
 % This approach is described and used in:
-% Thébault, E., Finlay, C.C., Alken, P. et al. 
+% ThÃ©bault, E., Finlay, C.C., Alken, P. et al. 
 % Evaluation of candidate geomagnetic field models for IGRF-12. 
 % Earth Planet Sp 67, 112 (2015) doi:10.1186/s40623-015-0273-4
 % Original code from E. Thebault (October 2014)
@@ -267,10 +267,6 @@ function VOID = plot_weights(TAB,LL,PATH,ARG)
 VOID = [];
 C_max = 1;
 
-load('~ciar/work/Swarm/coast.dat');
-lat = coast(:,2);
-long = coast(:,1);
-
 for i=1:max(size(TAB))
     TAB_values = TAB{i};
    
@@ -291,7 +287,6 @@ end
 pole_width = .3;
 axes('Position', [0  0.45 pole_width pole_width], 'Box', 'off')
 axesm('MapProjection', 'ortho', 'Origin', [90 0], 'FLatLimit',[-Inf 40.01])
-plotm(lat, long, '-k', 'Linewidth', 1)
 scatterm(TAB_values(:,2),TAB_values(:,1),15,w_tmp,'filled');
 tightmap
 caxis([-C_max C_max])
@@ -299,7 +294,6 @@ set(gca, 'Box', 'off', 'Visible', 'off')
 
 axes('Position', [1-pole_width 0.45 pole_width pole_width ], 'Box', 'off')
 axesm('MapProjection', 'ortho', 'Origin', [-90 0], 'FLatLimit',[-Inf 39.9])
-plotm(lat, long, '-k', 'Linewidth', 1)
 scatterm(TAB_values(:,2),TAB_values(:,1),15,w_tmp,'filled');
 tightmap
 caxis([-C_max C_max])
@@ -308,7 +302,6 @@ set(gca, 'Box', 'off', 'Visible', 'off')
 axes('Position', [0 0 1 .5], 'Box', 'off')
 axesm('MapProjection', 'hammer', 'Frame', 'off')
 scatterm(TAB_values(:,2),TAB_values(:,1),15,w_tmp,'filled');
-plotm(lat, long, '-k', 'Linewidth', 1)
 gridm
 tightmap
 set(gca, 'Box', 'off', 'Visible', 'off')
@@ -833,10 +826,7 @@ phi   = [-180+Step/2:Step:180-Step/2];
 
 a = 6371.2;
 C_max = 10; dC = 2;
-load('~ciar/work/Swarm/coast.dat')
 
-lat = coast(:,2);
-long = coast(:,1);
 
 if size(TAB,2) ~= 2
     for i=1:size(TAB,2)
@@ -856,7 +846,6 @@ if size(TAB,2) ~= 2
         pole_width = .3;
         axes('Position', [0  0.45 pole_width pole_width], 'Box', 'off')
         axesm('MapProjection', 'ortho', 'Origin', [90 0], 'FLatLimit',[-Inf 40.01])
-        plotm(lat, long, '-k', 'Linewidth', 1)
         meshm(B_tmp, B_ref)
         tightmap
         caxis(C_max*[-1 1])
@@ -864,7 +853,6 @@ if size(TAB,2) ~= 2
         
         axes('Position', [1-pole_width 0.45 pole_width pole_width ], 'Box', 'off')
         axesm('MapProjection', 'ortho', 'Origin', [-90 0], 'FLatLimit',[-Inf 39.9])
-        plotm(lat, long, '-k', 'Linewidth', 1)
         meshm(B_tmp, B_ref)
         tightmap
         caxis(C_max*[-1 1])
@@ -873,7 +861,6 @@ if size(TAB,2) ~= 2
         axes('Position', [0 0 1 .5], 'Box', 'off')
         axesm('MapProjection', 'hammer', 'Frame', 'off')
         meshm(B_tmp, B_ref)
-        plotm(lat, long, '-k', 'Linewidth', 1)
         gridm
         tightmap
         set(gca, 'Box', 'off', 'Visible', 'off')
@@ -982,7 +969,6 @@ else
     pole_width = .3;
     axes('Position', [0  0.45 pole_width pole_width], 'Box', 'off')
     axesm('MapProjection', 'ortho', 'Origin', [90 0], 'FLatLimit',[-Inf 40.01])
-    plotm(lat, long, '-k', 'Linewidth', 1)
     meshm(B_tmp, B_ref)
     tightmap
     caxis(C_max*[-1 1])
@@ -990,7 +976,6 @@ else
     
     axes('Position', [1-pole_width 0.45 pole_width pole_width ], 'Box', 'off')
     axesm('MapProjection', 'ortho', 'Origin', [-90 0], 'FLatLimit',[-Inf 39.9])
-    plotm(lat, long, '-k', 'Linewidth', 1)
     meshm(B_tmp, B_ref)
     tightmap
     caxis(C_max*[-1 1])
@@ -999,7 +984,6 @@ else
     axes('Position', [0 0 1 .5], 'Box', 'off')
     axesm('MapProjection', 'hammer', 'Frame', 'off')
     meshm(B_tmp, B_ref)
-    plotm(lat, long, '-k', 'Linewidth', 1)
     gridm
     tightmap
     set(gca, 'Box', 'off', 'Visible', 'off')
