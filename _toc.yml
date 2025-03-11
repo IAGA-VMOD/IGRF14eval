@@ -6,3 +6,4 @@ parts:
   - file: notebooks/DGRF_candidate_comparison
   - file: notebooks/IGRF_candidate_comparison
   - file: notebooks/SV_candidate_comparison
+  - file: notebooks/IGRF14_maps_scientific_plots
