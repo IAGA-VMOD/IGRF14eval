@@ -14,9 +14,9 @@
 
 # %% [markdown]
 # # Example code to draw magnetic field maps and scientific plots from the IGRF-14 
-# 
+#
 # Load in IGRF-14 coefficients
-##
+# #
 # There are : 
 # - first two lines start with # with comments/metadata 
 # - third line: cosine/sine degree and order  DGRF or IGRF or SV
@@ -241,9 +241,9 @@ for gen in range(len(time)-3,len(time)):
     # Adjust the location of the subplots on the page to make room for the colorbar
     fig.subplots_adjust(bottom=0.05, top=0.90, left=0.05, right=0.95,
                         wspace=0.1, hspace=0.35)
-    
-    
-#%% Plot the SV maps for 2025-2030
+
+
+# %% Plot the SV maps for 2025-2030
 
 # Define the contour levels to use in plt.contourf
 contouringsv = {'Xmin': -100, 'Xmax': 100, 'Xcont': 50, \
