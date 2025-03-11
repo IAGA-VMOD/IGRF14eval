@@ -12,7 +12,7 @@ authors:
   given-names: Clemens
   orcid: https://orcid.org/0000-0001-6899-904X
 - family-names: Smith
-  given-names: Ashley R. A.
+  given-names: Ashley
   orcid: https://orcid.org/0000-0001-5198-9574
 # Candidate model contributors
 - family-names: Amblard
@@ -21,6 +21,9 @@ authors:
 - family-names: Amezza
   given-names: Thiziri
   orcid: https://orcid.org/0009-0008-5694-4752
+- family-names: Amit
+  given-names: Hagay
+  orcid: https://orcid.org/0000-0002-6644-534X
 - family-names: Aubert
   given-names: Julien
   orcid: https://orcid.org/0000-0002-2756-0724
@@ -36,18 +39,30 @@ authors:
 - family-names: Campuano
   given-names: Saioa A.
   orcid: https://orcid.org/0000-0001-7047-5704
+- family-names: Chauvet
+  given-names: Louis
+  orcid: https://orcid.org/0000-0002-1467-9136
 - family-names: Chulliat
   given-names: Arnaud
   orcid: https://orcid.org/0000-0001-7414-9631
 - family-names: Claveau
   given-names: Romain
   orcid: https://orcid.org/0000-0001-5961-0370
+- family-names: Coïsson
+  given-names: Pierdavide
+  orcid: https://orcid.org/0000-0003-4155-2111
 - family-names: Davies
   given-names: Christopher
   orcid: https://orcid.org/0000-0002-1074-3815
+- family-names: Deborde
+  given-names: Robin
+  orcid: https://orcid.org/0009-0001-0735-2370
 - family-names: Dobrovolsky
   given-names: Michael
   orcid: https://orcid.org/0000-0001-6930-3331
+- family-names: Fillion
+  given-names: Martin
+  orcid: https://orcid.org/0000-0001-5733-7796
 - family-names: Finlay
   given-names: Chris
   orcid: https://orcid.org/0000-0002-4592-2290
@@ -81,6 +96,12 @@ authors:
 - family-names: Holschneider
   given-names: Matthias
   orcid: https://orcid.org/0000-0003-3987-105X
+- family-names: Hulot
+  given-names: Gauthier
+  orcid: https://orcid.org/0000-0001-8011-3096
+- family-names: Jager
+  given-names: Thomas
+  orcid: https://orcid.org/0000-0001-9871-9934
 - family-names: Jiang
   given-names: Yi
   orcid: https://orcid.org/0000-0003-3330-058X
@@ -102,6 +123,9 @@ authors:
 - family-names: Lauridsen
   given-names: Jonas Bregnhøj
   orcid: https://orcid.org/0000-0001-9520-0491
+- family-names: Léger
+  given-names: Jean-Michel
+  orcid: https://orcid.org/0009-0008-1546-6598
 - family-names: Lemgharbi
   given-names: Abdenaceur
   orcid: https://orcid.org/0000-0002-0558-0679
@@ -180,12 +204,18 @@ authors:
 - family-names: Shakespeare-Rees
   given-names: Naomi
   orcid: https://orcid.org/0000-0003-1193-9788
+- family-names: Shi
+  given-names: Yalei
+  orcid: https://orcid.org/0009-0003-1398-8062
 - family-names: da Silva
   given-names: Marcos Vinicius
   orcid: https://orcid.org/0000-0003-4713-1713
 - family-names: Soloviev
   given-names: Anatoly
   orcid: https://orcid.org/0000-0002-6476-9471
+- family-names: Terra-Nova
+  given-names: Felipe
+  orcid: https://orcid.org/0000-0003-3616-398X
 - family-names: Thébault
   given-names: Erwan
   orcid: https://orcid.org/0000-0002-7038-2855
