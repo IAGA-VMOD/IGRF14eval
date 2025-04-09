@@ -1,6 +1,8 @@
+ci:
+  autoupdate_schedule: quarterly
 repos:
 -   repo: https://github.com/mwouts/jupytext
-    rev: v1.17.0  # do not upgrade to 1.16.1, see https://github.com/mwouts/jupytext/issues/1210
+    rev: v1.17.0
     hooks:
     - id: jupytext
       args: [--sync]
